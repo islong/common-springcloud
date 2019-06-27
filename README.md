@@ -17,3 +17,5 @@
 ![image](https://github.com/islong/common-springcloud/blob/master/images/test.png)
 
 ![image](https://github.com/islong/common-springcloud/blob/master/images/test1.png)
+
+![image](https://github.com/islong/common-springcloud/blob/master/images/test2.png)
