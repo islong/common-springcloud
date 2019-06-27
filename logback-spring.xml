@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<configuration>
+
+    <timestamp key="bySecond" datePattern="yyyy-MM-dd"/>
+
+    <property name="COMMON_LOG_HOME" value="D:/cai/logs/${logging.app.name}"/>
+	
+	    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>
+                %d{yyyy/MM/dd-HH:mm:ss} %level [%thread] %c-%L - %msg%n
+            </pattern>
+            <immediateFlush>false</immediateFlush>
+        </encoder>
+    </appender>
+
+        <appender name="common.rolling" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${COMMON_LOG_HOME}/${logging.app.name}.log</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>${COMMON_LOG_HOME}/${logging.app.name}-%d{yyyy-MM-dd}.%i.log</fileNamePattern>
+            <maxHistory>30</maxHistory>
+            <TimeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+                <MaxFileSize>100MB</MaxFileSize>
+            </TimeBasedFileNamingAndTriggeringPolicy>
+        </rollingPolicy>
+        <encoder>
+            <pattern>%d{yyyy/MM/dd-HH:mm:ss} %level [%thread] %c-%L - %msg%n</pattern>
+            <immediateFlush>true</immediateFlush>
+        </encoder>
+    </appender>
+
+        <root level="INFO">
+		<appender-ref ref="STDOUT"/>
+        <appender-ref ref="common.rolling"/>
+    </root>
+</configuration>

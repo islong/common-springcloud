@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.dh.common.param.dao.ParamDao">
+
+	<resultMap id="BaseResultMap" type="com.dh.qf.model.TParam">
+		<id column="P_ID" jdbcType="VARCHAR" property="pId" />
+		<result column="PRIVATE_ID" jdbcType="VARCHAR" property="privateId" />
+		<result column="P_KEY" jdbcType="VARCHAR" property="pKey" />
+		<result column="P_VAL" jdbcType="VARCHAR" property="pVal" />
+		<result column="REMARK" jdbcType="VARCHAR" property="remark" />
+		<result column="CREATE_TIME" jdbcType="VARCHAR" property="createTime" />
+		<result column="UPDATE_TIME" jdbcType="VARCHAR" property="updateTime" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		P_ID, PRIVATE_ID, P_KEY, P_VAL, REMARK, CREATE_TIME,
+		UPDATE_TIME
+	</sql>
+	<select id="getParam" parameterType="java.lang.String"
+		resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from T_PARAM
+		where P_KEY = #{pKey,jdbcType=VARCHAR}
+	</select>
+	<select id="getParams" parameterType="java.util.Map" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from T_PARAM
+		<where>
+			<if test="pId != null">
+				AND P_ID = #{pId,jdbcType=VARCHAR}
+			</if>
+			<if test="privateId != null">
+				AND PRIVATE_ID = #{privateId,jdbcType=VARCHAR}
+			</if>
+			<if test="pKey != null">
+				AND P_KEY = #{pKey,jdbcType=VARCHAR}
+			</if>
+		</where>
+		<if test="pageSize != null and pageNum!=null">
+			limit #{startRow},#{pageSize}
+		</if>
+	</select>
+	<select id="getCount" parameterType="java.util.Map" resultType="java.lang.Integer">
+		select
+		count(1)
+		from T_PARAM
+		<where>
+			<if test="pId != null">
+				AND P_ID = #{pId,jdbcType=VARCHAR}
+			</if>
+			<if test="privateId != null">
+				AND PRIVATE_ID = #{privateId,jdbcType=VARCHAR}
+			</if>
+			<if test="pKey != null">
+				AND P_KEY = #{pKey,jdbcType=VARCHAR}
+			</if>
+		</where>
+	</select>
+	<insert id="saveParam" parameterType="com.dh.qf.model.TParam">
+		insert into T_PARAM
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="pId != null">
+				P_ID,
+			</if>
+			<if test="privateId != null">
+				PRIVATE_ID,
+			</if>
+			<if test="pKey != null">
+				P_KEY,
+			</if>
+			<if test="pVal != null">
+				P_VAL,
+			</if>
+			<if test="remark != null">
+				REMARK,
+			</if>
+			<if test="createTime != null">
+				CREATE_TIME,
+			</if>
+			<if test="updateTime != null">
+				UPDATE_TIME,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="pId != null">
+				#{pId,jdbcType=VARCHAR},
+			</if>
+			<if test="privateId != null">
+				#{privateId,jdbcType=VARCHAR},
+			</if>
+			<if test="pKey != null">
+				#{pKey,jdbcType=VARCHAR},
+			</if>
+			<if test="pVal != null">
+				#{pVal,jdbcType=VARCHAR},
+			</if>
+			<if test="remark != null">
+				#{remark,jdbcType=VARCHAR},
+			</if>
+			<if test="createTime != null">
+				#{createTime,jdbcType=VARCHAR},
+			</if>
+			<if test="updateTime != null">
+				#{updateTime,jdbcType=VARCHAR},
+			</if>
+		</trim>
+	</insert>
+	<delete id="deleteParam" parameterType="java.lang.String">
+		delete from T_PARAM
+		where
+		P_ID = #{pId,jdbcType=VARCHAR}
+	</delete>
+</mapper>
